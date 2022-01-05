@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, InputGroup, FormControl } from "react-bootstrap";
 import axios from "axios";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 interface ModalProps {
   text: string;
@@ -15,6 +16,7 @@ const ErrorMessage = styled.p`
 `;
 
 function ModalComponent({ text, variant, isSignupFlow }: ModalProps) {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
 
   const [email, setEmail] = useState("");
@@ -48,8 +50,13 @@ function ModalComponent({ text, variant, isSignupFlow }: ModalProps) {
     }
     console.log(data);
     if (data.errors.length) {
-      setErrorMsg(data.errors[0].msg);
+      return setErrorMsg(data.errors[0].msg);
     }
+
+    // Store the token in local storage
+    localStorage.setItem("token", data.data.token);
+    // Navigate to articles page
+    navigate("/articles");
   };
   return (
     <>
