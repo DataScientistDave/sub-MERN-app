@@ -12,6 +12,7 @@ function NavComponent() {
             <Link to="/" className="nav-link">
               Home
             </Link>
+            {/* Could handle logout by checking if something is in token in local storage. However, everybody has access to local storage and can change things. Use backend do this instead. */}
           </Nav>
         </Container>
       </Navbar>

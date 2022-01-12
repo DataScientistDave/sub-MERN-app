@@ -53,7 +53,7 @@ function ModalComponent({ text, variant, isSignupFlow }: ModalProps) {
       return setErrorMsg(data.errors[0].msg);
     }
 
-    // Store the token in local storage
+    // Store the token in local storage.
     localStorage.setItem("token", data.data.token);
     // Navigate to articles page
     navigate("/articles");
