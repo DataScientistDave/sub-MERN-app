@@ -133,8 +133,7 @@ router.post("/login", async (req, res) => {
   });
 });
 
-// Will go to checkAuth middleware first before rest of async function
-
+// Will go to checkAuth middleware first before rest of async function. This is a protected route. Only can hit this route if logged in.
 router.get("/me", checkAuth, async (req, res) => {
   const user = await User.findOne({ email: req.user });
   return res.json({

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, Button, InputGroup, FormControl } from "react-bootstrap";
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context";
 
 interface ModalProps {
   text: string;
@@ -26,8 +27,10 @@ function ModalComponent({ text, variant, isSignupFlow }: ModalProps) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [state, setState] = useContext(UserContext);
+
   const handleClick = async () => {
-    let data;
+    let response;
     if (isSignupFlow) {
       const { data: signUpData } = await axios.post(
         "http://localhost:5000/auth/signup",
@@ -36,8 +39,8 @@ function ModalComponent({ text, variant, isSignupFlow }: ModalProps) {
           password,
         }
       );
-      data = signUpData;
-      console.log(data);
+      response = signUpData;
+      // console.log(data);
     } else {
       const { data: loginData } = await axios.post(
         "http://localhost:5000/auth/login",
@@ -46,15 +49,27 @@ function ModalComponent({ text, variant, isSignupFlow }: ModalProps) {
           password,
         }
       );
-      data = loginData;
+      response = loginData;
     }
-    console.log(data);
-    if (data.errors.length) {
-      return setErrorMsg(data.errors[0].msg);
+    // console.log(data);
+    if (response.errors.length) {
+      return setErrorMsg(response.errors[0].msg);
     }
-
+    // need to set the state after loggin in/signing up, to allow nav bar to get context
+    setState({
+      data: {
+        id: response.data.user.id,
+        email: response.data.user.email,
+      },
+      loading: false,
+      error: null,
+    });
     // Store the token in local storage.
-    localStorage.setItem("token", data.data.token);
+    localStorage.setItem("token", response.data.token);
+    // set default axios header
+    axios.defaults.headers.common[
+      "authorization"
+    ] = `Bearer ${response.data.token}`;
     // Navigate to articles page
     navigate("/articles");
   };
