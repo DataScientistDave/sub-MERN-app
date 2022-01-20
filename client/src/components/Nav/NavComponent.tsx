@@ -5,7 +5,7 @@ import { UserContext } from "../../context";
 import styled from "styled-components";
 
 const LeftNavContainer = styled.div`
-  margin-left: auto;
+  margin-left: 48rem;
 `;
 
 function NavComponent() {
@@ -19,19 +19,17 @@ function NavComponent() {
   };
   return (
     <>
-      <Navbar bg="primary" variant="dark">
+      <Navbar style={{ backgroundColor: "aqua" }}>
         <Container>
           <Navbar.Brand href="#home">The Best</Navbar.Brand>
           <Nav className="me-auto">
-            <Link to="/" className="nav-link">
+            <Link to="/" className="nav-link" style={{ marginLeft: "1rem" }}>
               Home
             </Link>
-            {/* Could handle logout by checking if something is in token in local storage. However, everybody has access to local storage and can change things. Use backend do this instead. */}
-            {state.data && (
-              <LeftNavContainer>
-                <NavLink onClick={handleLogout}>Logout</NavLink>
-              </LeftNavContainer>
-            )}
+            <LeftNavContainer>
+              {/* Could handle logout by checking if something is in token in local storage. However, everybody has access to local storage and can change things. Use backend do this instead. */}
+              {state.data && <NavLink onClick={handleLogout}>Logout</NavLink>}
+            </LeftNavContainer>
           </Nav>
         </Container>
       </Navbar>

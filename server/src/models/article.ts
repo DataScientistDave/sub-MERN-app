@@ -1,22 +1,24 @@
 import mongoose, { mongo } from "mongoose";
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
-  email: {
+const articleSchema = new Schema({
+  title: {
     type: String,
     trim: true,
-    required: true,
-    unique: true,
   },
-  password: {
+  imageUrl: {
     type: String,
     required: true,
-    min: 5,
   },
-  stripeCustomerId: {
+  content: {
     type: String,
+    required: true,
+  },
+  access: {
+    type: String,
+    enum: ["Basic", "Standard", "Premium"],
     required: true,
   },
 });
 
-export default mongoose.model("User", userSchema);
+export default mongoose.model("Article", articleSchema);

@@ -3,6 +3,8 @@
 
 import express from "express";
 import authRoutes from "./routes/auth";
+import subsRoutes from "./routes/subs";
+import articlesRoutes from "./routes/articles";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -23,6 +25,8 @@ mongoose
     app.use(cors());
     // Kinda like api/jumps/session jumps
     app.use("/auth", authRoutes);
+    app.use("/subs", subsRoutes);
+    app.use("/articles", articlesRoutes);
 
     app.listen(5000, () => {
       console.log(`Now listening to port 5000`);

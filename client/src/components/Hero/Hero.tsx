@@ -7,7 +7,7 @@ import ModalComponent from "../Modal/ModalComponent";
 // styled components is a library to create custom styled components
 const HeroComponent = styled.header`
   padding: 5rem 0;
-  height: 90vh;
+  height: 100vh;
   background-image: url("https://images.unsplash.com/photo-1573633509389-0e3075dea01b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80");
   background-position: center;
   background-size: cover;
